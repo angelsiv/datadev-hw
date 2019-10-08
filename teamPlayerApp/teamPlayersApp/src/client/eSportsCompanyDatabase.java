@@ -70,9 +70,26 @@ public class eSportsCompanyDatabase {
 	{
 		try
 		{
-			Integer.parseInt(value);
-			System.out.println("Entered successfully...\n");
-			return true;
+			int choice = Integer.parseInt(value);
+			if (choice > 0 || choice <= 4)
+			{
+				System.out.println("Entered successfully...\n");
+				return true;
+			}
+			else //this is not functioning
+			{
+				System.out.println("Error: Invalid choice.");
+				return false;
+			}
+			try
+			{
+				value.contains()
+			}
+			catch(Exception e)
+			{
+				System.out.println(e);
+				System.out.println("Error: Invalid choice. Please choose between 1 and 4");
+			}
 		}
 		catch(Exception e)
 		{
@@ -80,5 +97,7 @@ public class eSportsCompanyDatabase {
 			System.out.println("Error: your input contains non-numeral characters.");
 			return false;
 		}
+
+
 	}
 }

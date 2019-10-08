@@ -12,7 +12,7 @@ public class Member
 	//Default constructor
 	public Member() 
 	{
-		this.id = 0000;
+		this.id = 0;
 		this.setType(PersonnelType.Undefined);
 		this.setSalary(0.00);
 	}
