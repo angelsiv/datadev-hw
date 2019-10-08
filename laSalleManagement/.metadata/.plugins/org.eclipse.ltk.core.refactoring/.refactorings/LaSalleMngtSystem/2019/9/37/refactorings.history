@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename method &apos;bus.Member.getPayment()&apos; to &apos;calculatePayment&apos;&#x0D;&#x0A;- Original project: &apos;LaSalleMngtSystem&apos;&#x0D;&#x0A;- Original element: &apos;bus.Member.getPayment()&apos;&#x0D;&#x0A;- Renamed element: &apos;bus.Member.calculatePayment()&apos;&#x0D;&#x0A;- Update references to refactored element" delegate="false" deprecate="false" description="Rename method &apos;getPayment&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.method" input="/src&lt;bus{Member.java[Member~getPayment" name="calculatePayment" references="true" stamp="1568321508056" version="1.0"/>
+</session>

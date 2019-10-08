@@ -1,0 +1,44 @@
+package bus;
+
+public class Member 
+{
+	private int id;
+	private String firstName;
+	private String lastName;
+	private PersonnelType type;
+	private double salary;
+	
+	//Default constructor
+	public Member() 
+	{
+		this.type = PersonnelType.Undefined;
+		this.salary = 0.00;
+	}
+	
+	public Member(int id, String fn, String ln, PersonnelType type, double salary)
+	{
+		this.setId(id);
+		this.setFirstName(fn);
+		this.lastName = ln;
+		this.type = type;
+		this.salary = salary;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+	
+	
+}

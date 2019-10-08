@@ -1,0 +1,12 @@
+package client;
+
+import bus.*;
+
+public class CalculatorTester2 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

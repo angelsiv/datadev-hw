@@ -1,0 +1,13 @@
+package client;
+
+import bus.Calculator;
+
+public class CalculatorTesterv1 {
+
+	public static void main(String[] args) 
+	{
+		Calculator calculator = new Calulator();
+
+	}
+
+}

@@ -1,0 +1,32 @@
+package bus;
+import java.time.*;
+
+public class Date 
+{
+	private int day;
+	private int month;
+	private int year;
+	
+	public Date(LocalDate localDate) 
+	{
+		
+	}
+	
+	public Date(int day, int month, int year)
+	{
+		this.day = day;
+		this.month = month;
+		this.year = year;
+	}
+	
+	public String toString()
+	{
+		return " - " + this.day + "/" + this.month + "/" + this.year;
+	}
+	
+	
+	public LocalDate getToday()
+	{
+		return LocalDate.now();
+	}
+}

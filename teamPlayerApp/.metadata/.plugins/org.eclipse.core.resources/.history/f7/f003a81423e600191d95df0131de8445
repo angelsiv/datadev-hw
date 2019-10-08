@@ -1,0 +1,32 @@
+package client;
+import bus.*;
+import java.util.Scanner;
+import java.time.*;
+
+public class TeamCompanyTester {
+
+	//My example is an eSports Company, with players, which are part of a team, with a coach and a manager
+	
+	public static void main(String[] args) 
+	{
+		Member person1 = new Member();
+		System.out.println(person1);
+		Date today = new Date();
+		today.getDateToday();
+	}
+	
+	
+	public static void isDigit(String value)
+	{
+		try
+		{
+			Double.parseDouble(value);
+			System.out.println("/nEntered successfully...");
+		}
+		catch(Exception e)
+		{
+			System.out.println(e);
+			System.out.println("Error: your input contains non-numeral characters.");
+		}
+	}
+}

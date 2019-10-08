@@ -1,0 +1,7 @@
+package bus;
+
+//This enumeration represents the possible type of staff that exists within the company database
+public enum PersonnelType 
+{
+	Undefined, Player, Coach, Manager
+}

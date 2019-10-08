@@ -1,0 +1,37 @@
+package bus;
+import java.time.*;
+
+public class Player extends Member
+{
+	//Source for the use of LocalDate: https://www.mkyong.com/java/java-how-to-get-current-date-time-date-and-calender/
+	private String teamName;
+	private LocalDate contractStart;
+	private LocalDate contractEnd;
+	
+	public Player()
+	{
+		super();
+		this.teamName = null;
+		this.contractStart = LocalDate.now();
+	}
+	
+	public void setContractStart(int year, int month, int day)
+	{
+		this.contractStart = LocalDate.of(year, month, day);
+	}
+	
+	public LocalDate getContactStart()
+	{
+		return this.contractStart;
+	}
+	
+	public void setContractEnd(int year, int month, int day)
+	{
+		
+	}
+	
+	public String toString()
+	{
+		return this.contractStart + " | ";
+	}
+}

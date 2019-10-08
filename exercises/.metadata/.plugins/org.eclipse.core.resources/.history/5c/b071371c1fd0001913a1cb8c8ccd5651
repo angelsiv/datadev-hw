@@ -1,0 +1,12 @@
+package client;
+
+public class CalculatorTester2 {
+
+	public static void main(String[] args) 
+	{
+		//input data from the user and make it dynamic
+		
+
+	}
+
+}

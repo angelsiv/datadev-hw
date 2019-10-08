@@ -1,0 +1,11 @@
+package client;
+import bus.*;
+
+public class TeamCompanyTester {
+
+	public static void main(String[] args) 
+	{
+		Member person1 = new Member();
+	}
+
+}

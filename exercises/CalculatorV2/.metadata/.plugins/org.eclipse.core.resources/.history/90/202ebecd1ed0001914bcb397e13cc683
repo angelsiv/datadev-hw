@@ -1,0 +1,33 @@
+package bus;
+
+public class Calculator {
+
+	private float number1;
+	private float number2;
+	
+	public Calculator() {
+		
+	}
+	
+	public Calculator(int value1, int value2) {
+		this.number1 = value1;
+		this.number2 = value2;
+	}
+	
+	public void SetNumber1(int value) { this.number1 = value; }
+	public int GetNumber1() { return this.number1; }
+	public void SetNumber2(int value) { this.number2 = value; }
+	public int GetNumber2() { return this.number2; }
+	
+	public String toString() {
+		return "\n Number 1 : "  + this.number1 + " | Number 2 : " + this.number2;
+	}
+	
+	public int Add(int value1, int value2) {
+		return value1 + value2;
+	}
+	
+	public int Add() {
+		return this.number1 + this.number2;
+	}
+}

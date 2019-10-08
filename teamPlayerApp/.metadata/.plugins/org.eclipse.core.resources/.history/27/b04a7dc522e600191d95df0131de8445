@@ -1,0 +1,8 @@
+package bus;
+
+public class Player extends Member
+{
+	private String teamName;
+	private Date contractStart;
+	private Date contractEnd;
+}

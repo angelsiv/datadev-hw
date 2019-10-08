@@ -1,0 +1,21 @@
+package bus;
+import java.time.*;
+
+public class Player extends Member
+{
+	private String teamName;
+	private LocalDate contractStart;
+	private Date contractEnd;
+	
+	public Player()
+	{
+		super();
+		this.teamName = null;
+		this.contractStart = LocalDate.now();
+	}
+	
+	public String toString()
+	{
+		return this.contractStart + " | ";
+	}
+}

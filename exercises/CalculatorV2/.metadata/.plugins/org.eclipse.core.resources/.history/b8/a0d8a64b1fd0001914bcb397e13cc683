@@ -1,0 +1,28 @@
+package client;
+
+import bus.*;
+import java.util.Scanner;
+
+public class CalculatorTesterv2 {
+
+	public static void main(String[] args) 
+	{
+		Calculator calculator = new Calculator();
+		Scanner scanner = new Scanner(System.in);
+		
+		float result;
+		
+		System.out.print("\n\t Calculator\n");
+		
+		System.out.print("\n Input first number: \n");
+		calculator.SetNumber1(scanner.nextFloat());
+		
+		System.out.print(" Input second number: \n");
+		
+		
+		
+		
+		
+	}
+
+}

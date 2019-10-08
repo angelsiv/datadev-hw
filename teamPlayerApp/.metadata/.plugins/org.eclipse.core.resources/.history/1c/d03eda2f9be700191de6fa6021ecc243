@@ -1,0 +1,44 @@
+package client;
+import bus.*;
+import java.util.Scanner;
+
+public class eSportsCompanyDatabase {
+
+	public static void main(String[] args) 
+	{
+		//Attributes
+		String menuChoice;
+		Scanner scanner = new Scanner(System.in);
+		boolean isDigit = false;
+		
+		//Main Menu
+		System.out.println("\t-- COMPANY DATABASE --\n\n" 
+		+ "1. Add new personnel\n" 
+		+ "2. Remove existing personnel\n"
+		+ "3. View current Database\n"
+		+ "4. Exit\n\n"
+		+ "Input choice (1-4): ");
+		
+		menuChoice = scanner.next();
+		isDigit(menuChoice);
+		if (isDigit)
+		{
+			
+		}
+	}
+	
+	public static boolean isDigit(String value)
+	{
+		try
+		{
+			Integer.parseInt(value);
+			isDigit = true;
+			System.out.println("\nEntered successfully...");
+		}
+		catch(Exception e)
+		{
+			System.out.println(e);
+			System.out.println("Error: your input contains non-numeral characters.");
+		}
+	}
+}

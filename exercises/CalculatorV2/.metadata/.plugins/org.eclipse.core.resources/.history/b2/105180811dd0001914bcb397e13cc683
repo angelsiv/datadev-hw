@@ -1,0 +1,15 @@
+package client;
+
+import bus.*;
+
+public class CalculatorTesterv1 {
+
+	public static void main(String[] args) 
+	{
+		Calculator calculator = new Calulator();
+		
+		System.out.print(calculator);
+
+	}
+
+}

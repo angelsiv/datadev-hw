@@ -1,0 +1,14 @@
+package client;
+import bus.*;
+
+public class TeamCompanyTester {
+
+	//eSports Company
+	
+	public static void main(String[] args) 
+	{
+		Member person1 = new Member();
+		System.out.println(person1);
+	}
+
+}
