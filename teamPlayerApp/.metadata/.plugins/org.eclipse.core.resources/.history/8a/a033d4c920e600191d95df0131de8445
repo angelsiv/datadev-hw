@@ -1,6 +1,0 @@
-package bus;
-
-public class Player extends Member
-{
-
-}

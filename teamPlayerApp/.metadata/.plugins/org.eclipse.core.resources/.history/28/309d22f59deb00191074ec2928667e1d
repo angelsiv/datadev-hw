@@ -71,6 +71,7 @@ public class eSportsCompanyDatabase {
 		try
 		{
 			int choice = Integer.parseInt(value);
+			char[] choices = {'1', '2', '3', '4'};
 			
 			if (choice > 0 || choice <= 4)
 			{
@@ -84,9 +85,9 @@ public class eSportsCompanyDatabase {
 			}
 			try
 			{
-				value.contains(s)
+				value.contains();
 			}
-			catch(IndexOutOfBoundsException e)
+			catch(Exception e)
 			{
 				System.out.println(e);
 				System.out.println("Error: Invalid choice. Please choose between 1 and 4");

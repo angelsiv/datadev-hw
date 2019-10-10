@@ -71,6 +71,7 @@ public class eSportsCompanyDatabase {
 		try
 		{
 			int choice = Integer.parseInt(value);
+			CharSequence choices = "1234";
 			
 			if (choice > 0 || choice <= 4)
 			{
@@ -84,7 +85,7 @@ public class eSportsCompanyDatabase {
 			}
 			try
 			{
-				value.contains(s)
+				value.contains(choices);
 			}
 			catch(IndexOutOfBoundsException e)
 			{

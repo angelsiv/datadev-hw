@@ -84,7 +84,7 @@ public class eSportsCompanyDatabase {
 			}
 			try
 			{
-				value.contains(s)
+				value.contains(1, 4);
 			}
 			catch(IndexOutOfBoundsException e)
 			{

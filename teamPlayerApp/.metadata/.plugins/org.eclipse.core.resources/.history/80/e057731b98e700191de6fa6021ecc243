@@ -1,6 +1,0 @@
-package bus;
-
-public enum PersonnelType 
-{
-	Undefined, Player, Coach, Manager
-}
