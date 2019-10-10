@@ -1,0 +1,12 @@
+package bus;
+import java.util.ArrayList;
+
+public class Teacher extends Employee
+{
+	private ArrayList<Courses> courseList;
+	
+	public Teacher()
+	{
+		this.courseList = null;
+	}
+}

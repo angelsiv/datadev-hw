@@ -4,7 +4,7 @@ import java.util.ArrayList;
 public class Student extends Member
 {
 	private double feesPerSession;
-	private ArrayList<Courses> courseList;
+	private ArrayList<Courses> courseList = new ArrayList<Courses>();
 	
 	public double getFeesPerSession()
 	{
