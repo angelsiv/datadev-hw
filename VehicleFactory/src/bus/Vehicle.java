@@ -6,7 +6,7 @@ public abstract class Vehicle implements IMileageEfficiency
     private int serialNumber;
     private String make;
     private String model;
-    protected float tripCounter;
+    protected int tripCounter;
 
     //Getters and Setters
     public int getSerialNumber()
@@ -34,12 +34,12 @@ public abstract class Vehicle implements IMileageEfficiency
         this.model = model;
     }
 
-    public float getTripCounter()
+    public int getTripCounter()
     {
         return tripCounter;
     }
 
-    public void setTripCounter(float tripCounter)
+    public void setTripCounter(int tripCounter)
     {
         this.tripCounter = tripCounter;
     }
@@ -50,7 +50,7 @@ public abstract class Vehicle implements IMileageEfficiency
         this.tripCounter = 0;
     }
 
-    public Vehicle(int serialNumber, String make, String model, float tripCounter)
+    public Vehicle(int serialNumber, String make, String model, int tripCounter)
     {
         this.serialNumber = serialNumber;
         this.make = make;
@@ -61,7 +61,7 @@ public abstract class Vehicle implements IMileageEfficiency
     //Common behaviours
     public void makeTrip()
     {
-
+        this.tripCounter = 0;
     }
 
     //Override to String
