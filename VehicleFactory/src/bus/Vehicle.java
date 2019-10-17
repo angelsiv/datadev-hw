@@ -50,18 +50,17 @@ public abstract class Vehicle implements IMileageEfficiency
         this.tripCounter = 0;
     }
 
-    public Vehicle(int serialNumber, String make, String model, int tripCounter)
+    public Vehicle(int serialNumber, String make, String model)
     {
         this.serialNumber = serialNumber;
         this.make = make;
         this.model = model;
-        this.tripCounter = tripCounter;
     }
 
     //Common behaviours
-    public void makeTrip()
+    public void makeTrip(int tripCounter)
     {
-        this.tripCounter = 0;
+        this.tripCounter = tripCounter;
     }
 
     //Override to String
