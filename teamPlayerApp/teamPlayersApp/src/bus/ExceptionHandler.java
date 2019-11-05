@@ -15,7 +15,7 @@ public class ExceptionHandler
                 System.out.println("Entered successfully...\n");
                 return true;
             }
-            else //this is not functioning
+            else
             {
                 System.out.println("Error: Invalid choice.");
                 return false;

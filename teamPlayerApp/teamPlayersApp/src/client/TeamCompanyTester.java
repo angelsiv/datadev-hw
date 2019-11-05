@@ -2,6 +2,8 @@ package client;
 import bus.*;
 import com.sun.deploy.security.SelectableSecurityManager;
 
+import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -12,8 +14,9 @@ public class TeamCompanyTester {
 
 	public static ArrayList<Member> list = new ArrayList<>();
 	public static ArrayList<Integer> alreadyUsed = new ArrayList<>();
+	public static ArrayList<Member> fileList = new ArrayList<>();
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException, ClassNotFoundException {
 		Member person1 = new Member();
 		//System.out.println(person1);
 		Player playerTest = new Player();
@@ -56,6 +59,21 @@ public class TeamCompanyTester {
 		for (Member m : list) {
 			System.out.println(m.getId());
 		}
+
+		FileHandler.writeToFile(list);
+		fileList= FileHandler.readFromFile();
+
+		System.out.println("\n Data From Compiler...\n");
+		for (Member person : list)
+		{
+			System.out.println(person);
+		}
+		System.out.println("\n Data From File...\n");
+		for (Member person : fileList)
+		{
+			System.out.println(person);
+		}
+
 	}
 	
 	public static void isDigit(String value)

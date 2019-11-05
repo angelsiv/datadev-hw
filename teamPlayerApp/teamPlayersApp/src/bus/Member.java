@@ -1,8 +1,9 @@
 package bus;
 
+import java.io.Serializable;
 import java.util.Comparator;
 
-public class Member
+public class Member implements Serializable
 {
 	//All attributes for parent class
 	private int id;

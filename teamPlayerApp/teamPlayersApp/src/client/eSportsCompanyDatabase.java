@@ -1,6 +1,8 @@
 package client;
 import bus.*;
 
+import javax.lang.model.type.ArrayType;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Random;
@@ -16,19 +18,33 @@ public class eSportsCompanyDatabase {
 	//Collections
 	private static ArrayList<Member> personnelList = new ArrayList<Member>();
 	private static ArrayList<Integer> alreadyUsedIDs = new ArrayList<Integer>();
+	private static ArrayList<Member> savedPersonnelList = new ArrayList<Member>();
 
-	public static void main(String[] args) 
+	public static void main(String[] args) throws IOException, ClassNotFoundException
+	{
+		//Retrieve all previously saved data
+		personnelList = FileHandler.readFromFile();
+
+		displayMainMenu();
+	}
+
+	/*
+	BRIEF: Displays the main menu and its available options for the user
+	PARAMS: n/a
+	OUT: void
+	 */
+	private static void displayMainMenu() throws IOException, ClassNotFoundException
 	{
 		//Attributes
 		String menuChoice;
 
 		//Main Menu
-		System.out.println("\t-- COMPANY DATABASE --\n\n" 
-		+ "1. Add new personnel\n" 
-		+ "2. Remove existing personnel\n"
-		+ "3. View current Database\n"
-		+ "4. Exit\n\n");
-		
+		System.out.println("\n\n\t-- COMPANY DATABASE --\n\n"
+				+ "1. Add new personnel\n"
+				+ "2. Remove existing personnel\n"
+				+ "3. View current Database\n"
+				+ "4. Exit\n\n");
+
 		//Asks for an user input while the precedent input is not valid
 		do
 		{
@@ -42,24 +58,27 @@ public class eSportsCompanyDatabase {
 		{
 			switch(menuChoice)
 			{
-			//ADD MEMBER
-			case "1": addNewMember();
+				//ADD MEMBER
+				case "1": addNewMember();
+					break;
 
-			//REMOVE MEMBER
-			case "2": removeMember();
-			break;
+				//REMOVE MEMBER
+				case "2": removeMember();
+					break;
 
-			//DISPLAY DATABASE
-			case "3": displayDatabase();
-			break;
+				//DISPLAY DATABASE
+				case "3": displayDatabase();
+					break;
 
-			//EXIT PROGRAM
-			case "4": System.out.println("Exiting Program...");
-			System.exit(0);
-			break;
-			
-			default: break;
+				//EXIT PROGRAM
+				case "4": System.out.println("Exiting Program...");
+					System.exit(0);
+					break;
+
+				default: break;
 			}
+			saveData();
+			displayMainMenu();
 		}
 	}
 
@@ -68,9 +87,9 @@ public class eSportsCompanyDatabase {
 	PARAMS: n/a
 	OUT: void
 	 */
-	private static void displayDatabase()
+	private static void displayDatabase() throws IOException, ClassNotFoundException
 	{
-		sortList(personnelList);
+		//sortList(savedPersonnelList);
 		System.out.println("\t -- DATABASE -- \n");
 		for(Member members : personnelList)
 		{
@@ -83,13 +102,12 @@ public class eSportsCompanyDatabase {
 	PARAMS: n/a
 	OUT: void
 	 */
-	private static void addNewMember()
+	private static void addNewMember() throws IOException, ClassNotFoundException
 	{
-		String type = null;
-
+		String type;
 		System.out.println("\t --ADD NEW MEMBER--\n");
 		System.out.println("Member Type (player, coach, manager): ");
-		type = scanner.nextLine();
+		type = scanner.next();
 		switch(type)
 		{
 			case "player":
@@ -106,6 +124,7 @@ public class eSportsCompanyDatabase {
 
 			default: break;
 		}
+		saveData();
 	}
 
 	/*
@@ -121,12 +140,13 @@ public class eSportsCompanyDatabase {
 
 		//User inputs
 		System.out.println("\nFIRST NAME: ");
-		newPlayer.setFirstName(scanner.nextLine());
+		newPlayer.setFirstName(scanner.next());
 		System.out.println("\nLAST NAME: ");
-		newPlayer.setLastName(scanner.nextLine());
+		newPlayer.setLastName(scanner.next());
 		System.out.println("\nSALARY: \n");
 		newPlayer.setSalary(scanner.nextDouble());
 		System.out.println("\nTEAM NAME: \n");
+		newPlayer.setTeamName(scanner.next());
 
 		System.out.println("\n CONTRACT START: YEAR: ");
 		int s_year = scanner.nextInt();
@@ -142,9 +162,9 @@ public class eSportsCompanyDatabase {
 		int e_month = scanner.nextInt();
 		System.out.println("\n CONTRACT END: DAY: ");
 		int e_day = scanner.nextInt();
-		newPlayer.setContractStart(e_year, e_month, e_day);
+		newPlayer.setContractEnd(e_year, e_month, e_day);
 
-		System.out.println("Created: " + newPlayer);
+		System.out.println("Created: " + newPlayer.getFirstName() + " " + newPlayer.getLastName());
 		return newPlayer;
 	}
 
@@ -157,23 +177,29 @@ public class eSportsCompanyDatabase {
 	PARAMS: n/a
 	OUT: void
 	 */
-	private static void removeMember()
+	private static void removeMember() throws IOException, ClassNotFoundException
 	{
 		System.out.println("\t -- REMOVE PERSONNEL --\n");
 		System.out.println("Enter ID: ");
 		int idNumber = scanner.nextInt();
+		Member memberToRemove = null;
 
 		for (Member member : personnelList)
 		{
 			if(idNumber % member.getId() == 0)
 			{
-				System.out.println("Removing: " + member);
-				personnelList.remove(member);
+				memberToRemove = member; //found
+				break;
 			}
 			else
 			{
 				System.out.println("Member with ID number [" + idNumber + "] does not exist.");
 			}
+		}
+		if(memberToRemove != null)
+		{
+			System.out.println("Removing: " + memberToRemove);
+			personnelList.remove(memberToRemove);
 		}
 	}
 
@@ -182,7 +208,7 @@ public class eSportsCompanyDatabase {
 	PARAMS: ArrayList<Member>
 	OUT: void
 	 */
-	private static void sortList(ArrayList<Member> list)
+	private static void sortList(ArrayList<Member> list) throws IOException, ClassNotFoundException
 	{
 		IDPredicate idComparator = new IDPredicate();
 		list.sort(idComparator);
@@ -205,5 +231,20 @@ public class eSportsCompanyDatabase {
 				return id;
 			}
 		}
+	}
+
+	/*
+	BRIEF: Saves all changes made to the database to MemberDatabase.ser file
+	PARAMS: n/a
+	OUT: void
+	 */
+	private static void saveData() throws IOException, ClassNotFoundException
+	{
+		FileHandler.writeToFile(personnelList);
+		/*for (Member member : personnelList)
+		{
+			System.out.println(member + "\n");
+		}*/
+		System.out.println("Saved..");
 	}
 }
