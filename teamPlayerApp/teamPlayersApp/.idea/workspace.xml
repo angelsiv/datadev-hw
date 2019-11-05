@@ -3,8 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="40c2a14b-285a-4c3b-8ac4-13717940d683" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MemberDatabase.ser" beforeDir="false" afterPath="$PROJECT_DIR$/MemberDatabase.ser" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/bus/Coach.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/bus/Coach.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/bus/Manager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/bus/Manager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/bus/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/bus/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/client/TeamCompanyTester.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/TeamCompanyTester.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/client/eSportsCompanyDatabase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/eSportsCompanyDatabase.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />

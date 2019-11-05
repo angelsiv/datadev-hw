@@ -1,7 +1,6 @@
 package client;
 import bus.*;
 
-import javax.lang.model.type.ArrayType;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -223,9 +222,17 @@ public class eSportsCompanyDatabase {
 		newManager.setType(PersonnelType.Manager);
 		newManager.setId(assignID());
 
+		//User inputs
+		System.out.println("\nFIRST NAME: ");
+		newManager.setFirstName(scanner.next());
+		System.out.println("\nLAST NAME: ");
+		newManager.setLastName(scanner.next());
+		System.out.println("\nSALARY: \n");
+		newManager.setSalary(scanner.nextDouble());
+		System.out.println("\nSPONSOR: \n");
+		newManager.setSponsoredCompany(scanner.next());
 
-
-
+		System.out.println("Created: " + newManager.getFirstName() + " " + newManager.getLastName());
 		return newManager;
 	}
 

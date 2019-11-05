@@ -2,31 +2,32 @@ package bus;
 
 public class Manager extends Member
 {
-    private String[] sponsoredCompanies;
+    private String sponsoredCompany;
 
     public Manager()
     {
         super();
-        this.sponsoredCompanies = null;
+        this.setType(PersonnelType.Manager);
+        this.sponsoredCompany = null;
     }
 
-    public Manager(String[] sponsoredCompanies)
+    public Manager(String sponsoredCompanies)
     {
-        this.sponsoredCompanies = sponsoredCompanies;
+        this.sponsoredCompany = sponsoredCompanies;
     }
 
-    public String[] getSponsoredCompanies()
+    public String getSponsoredCompany()
     {
-        return sponsoredCompanies;
+        return sponsoredCompany;
     }
 
-    public void setSponsoredCompanies(String[] value)
+    public void setSponsoredCompany(String value)
     {
-        this.sponsoredCompanies = sponsoredCompanies;
+        this.sponsoredCompany = value;
     }
 
     public String toString()
     {
-        return super.toString() + "SPONSORS: " + this.sponsoredCompanies + " | ";
+        return super.toString() + "Sponsor: " + this.sponsoredCompany + " | ";
     }
 }

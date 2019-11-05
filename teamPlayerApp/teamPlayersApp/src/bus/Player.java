@@ -13,6 +13,7 @@ public class Player extends Member
 	public Player()
 	{
 		super();
+		this.setType(PersonnelType.Player);
 		this.teamName = null;
 		this.contractStart = LocalDate.now();
 	}

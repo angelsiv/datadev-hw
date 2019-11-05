@@ -60,7 +60,7 @@ public class TeamCompanyTester {
 			System.out.println(m.getId());
 		}
 
-		FileHandler.writeToFile(list);
+		/*FileHandler.writeToFile(list);
 		fileList= FileHandler.readFromFile();
 
 		System.out.println("\n Data From Compiler...\n");
@@ -72,7 +72,7 @@ public class TeamCompanyTester {
 		for (Member person : fileList)
 		{
 			System.out.println(person);
-		}
+		}*/
 
 	}
 	

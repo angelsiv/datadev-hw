@@ -8,6 +8,7 @@ public class Coach extends Player
     public Coach()
     {
         super();
+        this.setType(PersonnelType.Coach);
         this.companyName = null;
     }
 
