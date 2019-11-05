@@ -18,7 +18,7 @@ public class eSportsCompanyDatabase {
 	//Collections
 	private static ArrayList<Member> personnelList = new ArrayList<Member>();
 	private static ArrayList<Integer> alreadyUsedIDs = new ArrayList<Integer>();
-	private static ArrayList<Member> savedPersonnelList = new ArrayList<Member>();
+	//private static ArrayList<Member> savedPersonnelList = new ArrayList<Member>();
 
 	public static void main(String[] args) throws IOException, ClassNotFoundException
 	{
@@ -169,8 +169,16 @@ public class eSportsCompanyDatabase {
 	}
 
 	//create coach func
+	private static Coach createCoach()
+	{
+		return new Coach();
+	}
 
 	//create manager func
+	private static Manager createManager()
+	{
+		return new Manager();
+	}
 
 	/*
 	BRIEF: Removes an existing member by ID number from the personnel list
