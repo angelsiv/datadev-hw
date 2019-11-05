@@ -29,6 +29,6 @@ public class Coach extends Player
 
     public String toString()
     {
-        return super.toString() + " | " + this.companyName;
+        return super.toString() + "Company: " + this.companyName + " | ";
     }
 }

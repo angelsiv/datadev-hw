@@ -115,11 +115,11 @@ public class eSportsCompanyDatabase {
 				break;
 
 			case "coach":
-				//create coach
+				personnelList.add(createCoach());
 				break;
 
 			case "manager":
-				//create manager
+				personnelList.add(createManager());
 				break;
 
 			default: break;
@@ -168,16 +168,65 @@ public class eSportsCompanyDatabase {
 		return newPlayer;
 	}
 
-	//create coach func
+	/*
+	BRIEF: Creates a new Coach with user inputs
+	PARAMS: n/a
+	OUT: Coach
+	 */
 	private static Coach createCoach()
 	{
-		return new Coach();
+		Coach newCoach = new Coach();
+		newCoach.setType(PersonnelType.Coach);
+		newCoach.setId(assignID());
+
+		//User inputs
+		System.out.println("\nFIRST NAME: ");
+		newCoach.setFirstName(scanner.next());
+		System.out.println("\nLAST NAME: ");
+		newCoach.setLastName(scanner.next());
+
+		System.out.println("\nSALARY: \n");
+		newCoach.setSalary(scanner.nextDouble());
+		System.out.println("\nTEAM NAME: \n");
+		newCoach.setTeamName(scanner.next());
+		System.out.println("\nCOMPANY NAME: \n");
+		newCoach.setCompanyName(scanner.next());
+
+		System.out.println("\n CONTRACT START: YEAR: ");
+		int s_year = scanner.nextInt();
+		System.out.println("\n CONTRACT START: MONTH (1-12): ");
+		int s_month = scanner.nextInt();
+		System.out.println("\n CONTRACT START: DAY: ");
+		int s_day = scanner.nextInt();
+		newCoach.setContractStart(s_year, s_month, s_day);
+
+		System.out.println("\n CONTRACT END: YEAR: ");
+		int e_year = scanner.nextInt();
+		System.out.println("\n CONTRACT END: MONTH (1-12): ");
+		int e_month = scanner.nextInt();
+		System.out.println("\n CONTRACT END: DAY: ");
+		int e_day = scanner.nextInt();
+		newCoach.setContractEnd(e_year, e_month, e_day);
+
+		System.out.println("Created: " + newCoach.getFirstName() + " " + newCoach.getLastName());
+		return newCoach;
 	}
 
-	//create manager func
+	/*
+	BRIEF: Creates a new Manager with user inputs
+	PARAMS: n/a
+	OUT: Manager
+	 */
 	private static Manager createManager()
 	{
-		return new Manager();
+		Manager newManager = new Manager();
+		newManager.setType(PersonnelType.Manager);
+		newManager.setId(assignID());
+
+
+
+
+		return newManager;
 	}
 
 	/*
