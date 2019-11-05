@@ -149,7 +149,9 @@ public class eSportsCompanyDatabase {
 		return newPlayer;
 	}
 
+	//create coach func
 
+	//create manager func
 
 	/*
 	BRIEF: Removes an existing member by ID number from the personnel list

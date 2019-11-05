@@ -2,16 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="40c2a14b-285a-4c3b-8ac4-13717940d683" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/bus/IDPredicate.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/bus/Validator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../laSalleManagement/LaSalleMngtSystem/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../laSalleManagement/LaSalleMngtSystem/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bus/Member.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/bus/Member.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bus/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/bus/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client/TeamCompanyTester.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/TeamCompanyTester.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/client/eSportsCompanyDatabase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/eSportsCompanyDatabase.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
