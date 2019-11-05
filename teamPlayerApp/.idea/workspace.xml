@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c1de781b-e6c0-4070-a55b-c41a86b6b233" name="Default Changelist" comment="" />
+    <list default="true" id="c1de781b-e6c0-4070-a55b-c41a86b6b233" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -14,7 +16,7 @@
   <component name="ProjectId" id="1Rw9LNlnf0MvrdYd7Q8IC08aBzx" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../VehicleFactory" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/teamPlayersApp" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">

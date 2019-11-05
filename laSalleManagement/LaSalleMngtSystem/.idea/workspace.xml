@@ -2,7 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fe1fde73-7cf5-482b-aece-7a1462bbf6be" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../teamPlayerApp/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../teamPlayerApp/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../teamPlayerApp/teamPlayersApp/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../teamPlayerApp/teamPlayersApp/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../teamPlayerApp/teamPlayersApp/src/bus/Member.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../teamPlayerApp/teamPlayersApp/src/bus/Member.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../teamPlayerApp/teamPlayersApp/src/bus/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../teamPlayerApp/teamPlayersApp/src/bus/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../teamPlayerApp/teamPlayersApp/src/client/TeamCompanyTester.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../teamPlayerApp/teamPlayersApp/src/client/TeamCompanyTester.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../teamPlayerApp/teamPlayersApp/src/client/eSportsCompanyDatabase.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../teamPlayerApp/teamPlayersApp/src/client/eSportsCompanyDatabase.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -25,7 +30,7 @@
   <component name="ProjectId" id="1Rw9uC2MYM8ZKDqUttNi3GoNQge" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="C:/Program Files/Git/bin/git.exe" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="vcs.Git" />
   </component>
   <component name="RunDashboard">
@@ -58,7 +63,9 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>

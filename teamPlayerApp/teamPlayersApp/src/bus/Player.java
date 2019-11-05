@@ -24,6 +24,16 @@ public class Player extends Member
 	}
 	
 	//Getters and setters for each attributes
+	public void setTeamName(String value)
+	{
+		this.teamName = value;
+	}
+
+	public String getTeamName()
+	{
+		return this.teamName;
+	}
+
 	public void setContractStart(int year, int month, int day)
 	{
 		this.contractStart = LocalDate.of(year, month, day);
@@ -47,6 +57,6 @@ public class Player extends Member
 	//Override to string
 	public String toString()
 	{
-		return this.contractStart + " | ";
+		return super.toString() + "Team Name: " + this.teamName + " | " + "Start Date: " + this.contractStart + " | " + "End Date: " + this.contractEnd + " | ";
 	}
 }

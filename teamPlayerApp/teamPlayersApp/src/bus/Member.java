@@ -1,6 +1,8 @@
 package bus;
 
-public class Member 
+import java.util.Comparator;
+
+public class Member
 {
 	//All attributes for parent class
 	private int id;
@@ -83,4 +85,5 @@ public class Member
 		return this.id + " | " + "Name: " + this.lastName + " " + this.firstName + " | " + "Salary: " + this.salary + " | "
 		+ "Position: " + this.type + " | ";
 	}
+
 }
