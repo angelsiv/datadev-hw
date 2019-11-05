@@ -1,6 +1,5 @@
 package client;
 import bus.*;
-import com.sun.javafx.image.IntPixelGetter;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -36,10 +35,10 @@ public class eSportsCompanyDatabase {
 			System.out.println("Input choice (1-4): \n");
 			menuChoice = scanner.next();
 		}
-		while(!Validator.isDigit(menuChoice));
+		while(!ExceptionHandler.isDigit(menuChoice));
 
 		//Once the user input is valid, allow for switch case
-		if (Validator.isDigit(menuChoice))
+		if (ExceptionHandler.isDigit(menuChoice))
 		{
 			switch(menuChoice)
 			{

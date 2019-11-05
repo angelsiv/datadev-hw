@@ -2,7 +2,7 @@ package bus;
 
 import java.time.temporal.ValueRange;
 
-public class Validator
+public class ExceptionHandler
 {
     //To verify that the user input is an integer
     public static boolean isDigit(String value)
