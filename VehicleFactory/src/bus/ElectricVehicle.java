@@ -28,7 +28,7 @@ public class ElectricVehicle extends Vehicle
         this.KWPowerConsumed = KWPowerConsumed;
     }
 
-    public void makeTrip(float KWPowerConsumed)
+    public void makeTrip(int tripCounter, float KWPowerConsumed)
     {
         super.makeTrip(tripCounter);
         this.KWPowerConsumed = KWPowerConsumed;
@@ -43,6 +43,6 @@ public class ElectricVehicle extends Vehicle
     @Override
     public String toString()
     {
-        return "";
+        return super.toString() + "";
     }
 }

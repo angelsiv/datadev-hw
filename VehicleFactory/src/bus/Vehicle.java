@@ -24,6 +24,11 @@ public abstract class Vehicle implements IMileageEfficiency
         return this.make;
     }
 
+    public void setMake(String value)
+    {
+        this.make = value;
+    }
+
     public String getModel()
     {
         return model;
@@ -64,8 +69,9 @@ public abstract class Vehicle implements IMileageEfficiency
     }
 
     //Override to String
+    //Source for using string interpolation (format): https://en.wikipedia.org/wiki/String_interpolation#Java
     public String toString()
     {
-        return "";
+        return String.format("S#: %s | Make: %s | Model: %s ", this.serialNumber, this.make, this.model);
     }
 }

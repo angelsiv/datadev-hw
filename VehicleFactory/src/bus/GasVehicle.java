@@ -35,13 +35,14 @@ public class GasVehicle extends Vehicle
     }
 
     @Override
-    public float getMilesPerGallon() {
+    public float getMilesPerGallon()
+    {
         return this.tripCounter/this.fuelConsumed;
     }
 
     @Override
     public String toString()
     {
-        return "";
+        return super.toString() + "";
     }
 }
