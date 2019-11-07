@@ -1,5 +1,6 @@
 package bus;
 
+//Source for regex for a floating point: https://stackoverflow.com/questions/12643009/regular-expression-for-floating-point-numbers
 public class ElectricVehicle extends Vehicle
 {
     private float KWPowerConsumed;
@@ -10,9 +11,13 @@ public class ElectricVehicle extends Vehicle
         return KWPowerConsumed;
     }
 
-    public void setKWPowerConsumed(float KWPowerConsumed)
+    public void setKWPowerConsumed(float value) throws Exception
     {
-        this.KWPowerConsumed = KWPowerConsumed;
+        if(!String.valueOf(value).matches("[+-]?([0-9]*[.])?[0-9]+"))
+        {
+            throw new Exception("Error: Must only contain digits");
+        }
+        this.KWPowerConsumed = value;
     }
 
     //Default constructor
@@ -43,6 +48,6 @@ public class ElectricVehicle extends Vehicle
     @Override
     public String toString()
     {
-        return super.toString() + "";
+        return super.toString() + String.format("Mileage: %s", this.getMilesPerGallon());
     }
 }

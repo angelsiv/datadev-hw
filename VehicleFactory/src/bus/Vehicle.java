@@ -16,7 +16,7 @@ public abstract class Vehicle implements IMileageEfficiency, Serializable
         return serialNumber;
     }
 
-    public void setSerialNumber(int value)
+    public void setSerialNumber(int value) //will be assigned a random unique int
     {
         this.serialNumber = value;
     }
@@ -26,8 +26,12 @@ public abstract class Vehicle implements IMileageEfficiency, Serializable
         return this.make;
     }
 
-    public void setMake(String value)
+    public void setMake(String value) throws Exception
     {
+        if(!String.valueOf(value).matches("[a-zA-Z]*"))
+        {
+            throw new Exception("Error: Must be non-numerical input");
+        }
         this.make = value;
     }
 
@@ -36,8 +40,12 @@ public abstract class Vehicle implements IMileageEfficiency, Serializable
         return model;
     }
 
-    public void setModel(String model)
+    public void setModel(String value) throws Exception
     {
+        if(!String.valueOf(value).matches("[a-zA-Z]*"))
+        {
+            throw new Exception("Error: Must be non-numerical input");
+        }
         this.model = model;
     }
 
@@ -46,9 +54,13 @@ public abstract class Vehicle implements IMileageEfficiency, Serializable
         return tripCounter;
     }
 
-    public void setTripCounter(int tripCounter)
+    public void setTripCounter(int value) throws Exception
     {
-        this.tripCounter = tripCounter;
+        if(!String.valueOf(value).matches("\\d+"))
+        {
+            throw new Exception("Error: Must only contain digits");
+        }
+        this.tripCounter = value;
     }
 
     //Default constructor

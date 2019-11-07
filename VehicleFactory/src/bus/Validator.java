@@ -18,7 +18,7 @@ public class Validator
         {
             int userInput = Integer.parseInt(input);
 
-            if (userInput >= MIN_INPUT && MAX_INPUT <= userInput) //verify that the digit is an existing choice
+            if (userInput >= MIN_INPUT && userInput <= MAX_INPUT) //verify that the digit is an existing choice
             {
                 System.out.println("...\n");
                 return true;

@@ -1,5 +1,6 @@
 package client;
 import bus.*;
+import jdk.nashorn.internal.runtime.ECMAException;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -20,7 +21,7 @@ public class FactoryApplication
     private static ArrayList<Vehicle> vehicleList = new ArrayList<Vehicle>();
     private static ArrayList<Integer> alreadyUsedIDs = new ArrayList<Integer>();
 
-    public static void main(String[] args) throws IOException, ClassNotFoundException
+    public static void main(String[] args) throws Exception
     {
         //Load serialized file
         //vehicleList = FileHandler.readFromFile(); //file doesn't exist yet so will break code
@@ -34,8 +35,7 @@ public class FactoryApplication
     PARAMS: n/a
     OUT: void
      */
-    private static void displayMainMenu() throws IOException, ClassNotFoundException
-    {
+    private static void displayMainMenu() throws Exception {
         //Attributes
         String userInput;
         Validator.setBoundsForUserInput(1, 5); //this menu has options from 1 to 5
@@ -48,7 +48,7 @@ public class FactoryApplication
                     + "2. Add Vehicle\n"
                     + "3. Remove Vehicle\n"
                     + "4. Display Vehicle List\n"
-                    + "5. Exit\n\n");
+                    + "5. Exit\n");
 
             System.out.println("\nSelect option (1 - 4): ");
             userInput = scan.next();
@@ -77,7 +77,7 @@ public class FactoryApplication
     PARAMS: n/a
     OUT: void
      */
-    private static void addVehicle() throws IOException, ClassNotFoundException
+    private static void addVehicle() throws Exception
     {
         //Attributes
         String userInput;
@@ -106,25 +106,33 @@ public class FactoryApplication
         }
     }
 
-    private static GasVehicle createGasVehicle()
+    private static GasVehicle createGasVehicle() throws Exception
     {
         GasVehicle newGVehicle = new GasVehicle();
         newGVehicle.setSerialNumber(assignID());
 
-        //User inputs here
-
+        System.out.println("\n\t -- ADDING NEW GAS VEHICLE --");
+        //User inputs
+        System.out.println("Vehicle Make: ");
+        newGVehicle.setMake(scan.next());
+        System.out.println("Vehicle Model: ");
+        newGVehicle.setModel(scan.next());
 
         System.out.print("Successfully added a new Gas Vehicle");
         return newGVehicle;
     }
 
-    private static ElectricVehicle createElectricVehicle()
+    private static ElectricVehicle createElectricVehicle() throws Exception
     {
         ElectricVehicle newEVehicle = new ElectricVehicle();
         newEVehicle.setSerialNumber(assignID());
 
-        //User inputs here
-
+        System.out.println("\n\t -- ADDING NEW GAS VEHICLE --");
+        //User inputs
+        System.out.println("Vehicle Make: ");
+        newEVehicle.setMake(scan.next());
+        System.out.println("Vehicle Model: ");
+        newEVehicle.setModel(scan.next());
 
         System.out.print("Successfully added a new Electric Vehicle");
         return newEVehicle;
@@ -135,7 +143,7 @@ public class FactoryApplication
     PARAMS: n/a
     OUT: void
      */
-    private static void removeVehicle() throws IOException, ClassNotFoundException
+    private static void removeVehicle() throws IOException
     {
         String userInput;
         do
@@ -151,11 +159,11 @@ public class FactoryApplication
             int serialNumber = Integer.parseInt(userInput);
             System.out.println(String.format("Removing: %s", serialNumber));
             vehicleList.remove(searchVehicle(serialNumber));
+            saveData();
         }
-        //saveData();
     }
 
-    private static void displayVehicleList() throws IOException, ClassNotFoundException
+    private static void displayVehicleList() throws Exception
     {
         System.out.println("\t -- VEHICLE LIST --\n");
 
@@ -169,7 +177,7 @@ public class FactoryApplication
     //4.	Listing vehicles, listing gasoline vehicles, listing electric vehicles
     //  1.1- sort the factory by mileage in descending order
     //  1.2-  search for a vehicle by brand
-    private static void displayListOptions() throws IOException, ClassNotFoundException
+    private static void displayListOptions() throws Exception
     {
         //Attributes
         String userInput;
@@ -196,7 +204,7 @@ public class FactoryApplication
                 case "1": sortVehiclesBySerialNumber(vehicleList); break;
                 case "2": displayGasVehicles(); break;
                 case "3": displayElectricVehicles(); break;
-                case "4": sortVehiclesByMileage(); break;
+                case "4": sortVehiclesByMileage(vehicleList); break;
                 case "5": searchVehicle(); break;
                 case "6": searchVehicleByBrand(); break;
                 case "7": displayMainMenu(); break;
@@ -294,9 +302,16 @@ public class FactoryApplication
         }
     }
 
-    private static void sortVehiclesByMileage()
+    /*
+    BRIEF: Sorts a list of vehicles by their mileage in a descending order
+    PARAMS: ArrayList<Vehicle>
+    OUT: void
+     */
+    private static void sortVehiclesByMileage(ArrayList<Vehicle> list) throws Exception
     {
-
+        MileagePredicate mileageComparator = new MileagePredicate();
+        list.sort(mileageComparator);
+        displayVehicleList();
     }
 
     /*
@@ -304,10 +319,11 @@ public class FactoryApplication
     PARAMS: ArrayList<Vehicle>
     OUT: void
      */
-    private static void sortVehiclesBySerialNumber(ArrayList<Vehicle> list)
+    private static void sortVehiclesBySerialNumber(ArrayList<Vehicle> list) throws Exception
     {
         SerialNumberPredicate serialNumberComparator = new SerialNumberPredicate();
         list.sort(serialNumberComparator);
+        displayVehicleList();
     }
 
     private static void searchVehicleByBrand()
@@ -320,9 +336,9 @@ public class FactoryApplication
     PARAMS: n/a
     OUT: void
      */
-    private static void saveData() throws IOException, ClassNotFoundException
+    private static void saveData() throws IOException
     {
-        //use stream input/output
+        FileHandler.writeToFile(vehicleList);
         System.out.print("Saving data...");
     }
 

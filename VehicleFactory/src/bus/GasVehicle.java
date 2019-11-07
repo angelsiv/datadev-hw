@@ -10,9 +10,13 @@ public class GasVehicle extends Vehicle
         return fuelConsumed;
     }
 
-    public void setFuelConsumed(float fuelConsumed)
+    public void setFuelConsumed(float value) throws Exception
     {
-        this.fuelConsumed = fuelConsumed;
+        if(!String.valueOf(value).matches("[+-]?([0-9]*[.])?[0-9]+"))
+        {
+            throw new Exception("Error: Must only contain digits");
+        }
+        this.fuelConsumed = value;
     }
 
     //Default constructor
@@ -43,6 +47,6 @@ public class GasVehicle extends Vehicle
     @Override
     public String toString()
     {
-        return super.toString() + "";
+        return super.toString() + String.format("Mileage: %s", this.getMilesPerGallon());
     }
 }
