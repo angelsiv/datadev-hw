@@ -2,6 +2,8 @@ package bus;
 
 import java.io.Serializable;
 
+//Source for regex: https://docs.oracle.com/javase/7/docs/api/java/util/regex/Pattern.html#lt
+
 public abstract class Vehicle implements IMileageEfficiency, Serializable
 {
     //Attributes
