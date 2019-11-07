@@ -48,7 +48,7 @@ public abstract class Vehicle implements IMileageEfficiency, Serializable
         {
             throw new Exception("Error: Must be non-numerical input");
         }
-        this.model = model;
+        this.model = value;
     }
 
     public int getTripCounter()
