@@ -1,6 +1,5 @@
 package client;
 import bus.*;
-import jdk.nashorn.internal.runtime.ECMAException;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -50,7 +49,7 @@ public class FactoryApplication
                     + "4. Display Vehicle List\n"
                     + "5. Exit\n");
 
-            System.out.println("\nSelect option (1 - 4): ");
+            System.out.println("\nSelect option (1 - 5): ");
             userInput = scan.next();
         }
         while (!Validator.isValidUserInput(userInput)); //verify options
@@ -60,14 +59,64 @@ public class FactoryApplication
         {
             switch(userInput)
             {
-                case "1": break; //add make trip
+                case "1": makeTrip(); break;
                 case "2": addVehicle(); break;
                 case "3": removeVehicle(); break;
                 case "4": displayVehicleList(); break;
-                case "5": ExitApplication(); break;
+                case "5": exitApplication(); break;
                 default: break;
             }
             saveData();
+            displayMainMenu();
+        }
+    }
+
+    /*
+    BRIEF: Allows the user to select any existing vehicle in order to create a trip by setting its trip counter and fuel/power consumed
+    PARAMS: n/a
+    OUT: void
+     */
+    private static void makeTrip() throws Exception
+    {
+        String userInput;
+        Vehicle tripVehicle;
+
+        if(vehicleList != null)
+        {
+            System.out.println("\n\t -- CREATE A TRIP -- \n");
+            System.out.println("Select a vehicle from the list: \n");
+            displayVehicleList();
+            do
+            {
+                System.out.println("Enter a serial number: \n");
+                userInput = scan.next();
+            }
+            while(!Validator.isDigit(userInput));
+            if(Validator.isDigit(userInput));
+            {
+                int serialNumber = Integer.parseInt(userInput);
+                tripVehicle = searchVehicle(serialNumber);
+                System.out.println("Set trip counter (mi): \n");
+                tripVehicle.setTripCounter(scan.nextInt());
+                if(tripVehicle instanceof GasVehicle)
+                {
+                    System.out.println("Set fuel consumed (gallon): \n");
+                    ((GasVehicle) tripVehicle).setFuelConsumed(scan.nextFloat());
+                }
+                else if(tripVehicle instanceof ElectricVehicle)
+                {
+                    System.out.println("Set power consumed (KW): \n");
+                    ((ElectricVehicle) tripVehicle).setKWPowerConsumed(scan.nextFloat());
+                }
+                System.out.println("Making trip...");
+                System.out.println(tripVehicle);
+                saveData();
+            }
+        }
+        else
+        {
+            System.out.println("Error: No existing vehicles to create a trip\n");
+            System.out.println("Returning to main menu...\n");
             displayMainMenu();
         }
     }
@@ -86,7 +135,7 @@ public class FactoryApplication
         //Display user choices
         do
         {
-            System.out.println("\t -- ADD NEW VEHICLE --\n");
+            System.out.println("\t -- ADD A NEW VEHICLE --\n");
             System.out.println("1. Gas Vehicle\n");
             System.out.println("2. Electric Vehicle\n");
             System.out.println("\nSelect option (1 - 2): ");
@@ -111,7 +160,7 @@ public class FactoryApplication
         GasVehicle newGVehicle = new GasVehicle();
         newGVehicle.setSerialNumber(assignID());
 
-        System.out.println("\n\t -- ADDING NEW GAS VEHICLE --");
+        System.out.println("\n\t -- ADDING NEW GAS VEHICLE --\n");
         //User inputs
         System.out.println("Vehicle Make: ");
         newGVehicle.setMake(scan.next());
@@ -127,7 +176,7 @@ public class FactoryApplication
         ElectricVehicle newEVehicle = new ElectricVehicle();
         newEVehicle.setSerialNumber(assignID());
 
-        System.out.println("\n\t -- ADDING NEW GAS VEHICLE --");
+        System.out.println("\n\t -- ADDING NEW GAS VEHICLE --\n");
         //User inputs
         System.out.println("Vehicle Make: ");
         newEVehicle.setMake(scan.next());
@@ -148,8 +197,8 @@ public class FactoryApplication
         String userInput;
         do
         {
-            System.out.println("\t\n--REMOVE VEHICLE--");
-            System.out.println("Enter serial number of vehicle to remove: \n");
+            System.out.println("\t\n--REMOVE AN EXISTING VEHICLE--\n");
+            System.out.println("Enter the serial number of vehicle to remove: \n");
             userInput = scan.next();
         }
         while(!Validator.isDigit(userInput));
@@ -157,7 +206,7 @@ public class FactoryApplication
         if(Validator.isDigit(userInput))
         {
             int serialNumber = Integer.parseInt(userInput);
-            System.out.println(String.format("Removing: %s", serialNumber));
+            System.out.println(String.format("Removing vehicle #'%s'", serialNumber));
             vehicleList.remove(searchVehicle(serialNumber));
             saveData();
         }
@@ -174,9 +223,11 @@ public class FactoryApplication
         displayListOptions();
     }
 
-    //4.	Listing vehicles, listing gasoline vehicles, listing electric vehicles
-    //  1.1- sort the factory by mileage in descending order
-    //  1.2-  search for a vehicle by brand
+    /*
+    BRIEF: Lets user sort the vehicle list by a condition, or to search a vehicle by a condition
+    PARAMS: n/a
+    OUT: void
+     */
     private static void displayListOptions() throws Exception
     {
         //Attributes
@@ -192,7 +243,7 @@ public class FactoryApplication
             System.out.println("5. Search a vehicle by serial number\n");
             System.out.println("6. Search a vehicle by brand\n");
             System.out.println("7. Return to the main menu\n");
-            System.out.println("\nSelect option (1 - 5): ");
+            System.out.println("\nSelect option (1 - 7): \n");
             userInput =  scan.next();
         }
         while (!Validator.isValidUserInput(userInput));
@@ -215,7 +266,7 @@ public class FactoryApplication
     }
 
     /*
-    BRIEF: Searches a vehicle through the vehicle list with a matching input serial number and returns a Vehicle to use in other functions
+    BRIEF: Searches a vehicle through the vehicle list with a matching serial number input, and returns a Vehicle to use in other functions
     PARAMS: int
     OUT: Vehicle
      */
@@ -245,7 +296,7 @@ public class FactoryApplication
     }
 
     /*
-    BRIEF: Searches a vehicle through the vehicle list with a matching input
+    BRIEF: Searches a vehicle through the vehicle list with a matching serial number input and prints it
     PARAMS: n/a
     OUT: void
      */
@@ -268,7 +319,7 @@ public class FactoryApplication
             {
                 if(serialNumber % element.getSerialNumber() == 0)
                 {
-                    System.out.print(String.format("\nFound Vehicle with serial '%s':\n", serialNumber));
+                    System.out.print(String.format("\nFound vehicle with serial '%s':\n", serialNumber));
                     System.out.println(element);
                     break;
                 }
@@ -280,8 +331,14 @@ public class FactoryApplication
         }
     }
 
+    /*
+    BRIEF: Lists all vehicles of type Gas from the vehicle list
+    PARAMS: n/a
+    OUT: void
+     */
     private static void displayGasVehicles()
     {
+        System.out.println("\n\t Displaying all gas vehicles...\n");
         for(Vehicle element : vehicleList)
         {
             if (element instanceof GasVehicle)
@@ -291,8 +348,14 @@ public class FactoryApplication
         }
     }
 
+    /*
+    BRIEF: Lists all vehicles of type Electric from the vehicle list
+    PARAMS: n/a
+    OUT: void
+     */
     private static void displayElectricVehicles()
     {
+        System.out.println("\n\t Displaying all electric vehicles...\n");
         for(Vehicle element : vehicleList)
         {
             if (element instanceof ElectricVehicle)
@@ -309,6 +372,7 @@ public class FactoryApplication
      */
     private static void sortVehiclesByMileage(ArrayList<Vehicle> list) throws Exception
     {
+        System.out.println("\n\t Sorting by mileage...\n");
         MileagePredicate mileageComparator = new MileagePredicate();
         list.sort(mileageComparator);
         displayVehicleList();
@@ -321,14 +385,43 @@ public class FactoryApplication
      */
     private static void sortVehiclesBySerialNumber(ArrayList<Vehicle> list) throws Exception
     {
+        System.out.println("\n\t Sorting by serial number...\n");
         SerialNumberPredicate serialNumberComparator = new SerialNumberPredicate();
         list.sort(serialNumberComparator);
         displayVehicleList();
     }
 
+    /*
+    BRIEF: Searches a vehicle through the vehicle list with a matching vehicle make input and prints them
+    PARAMS: n/a
+    OUT: void
+     */
     private static void searchVehicleByBrand()
     {
+        String userInput;
+        do
+        {
+            System.out.println("\n\t -- SEARCH VEHICLE BY BRAND --\n");
+            System.out.println("Enter a brand: \n");
+            userInput = scan.next();
+        }
+        while(Validator.isDigit(userInput));
 
+        if(!Validator.isDigit(userInput))
+        {
+            for(Vehicle element : vehicleList)
+            {
+                if(userInput.equals(element.getMake()))
+                {
+                    System.out.print(String.format("\nFound vehicle(s) of brand '%s':\n", userInput));
+                    System.out.println(element);
+                }
+                else
+                {
+                    System.out.println(String.format("\nVehicle of brand '%s' does not exist.\n", userInput));
+                }
+            }
+        }
     }
 
     /*
@@ -366,7 +459,7 @@ public class FactoryApplication
     PARAMS: n/a
     OUT: void
      */
-    private static void ExitApplication()
+    private static void exitApplication()
     {
         System.out.println("Exiting application confirmed...");
         System.exit(0);
