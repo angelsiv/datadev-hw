@@ -30,7 +30,7 @@ public abstract class Vehicle implements IMileageEfficiency, Serializable
 
     public void setMake(String value) throws Exception
     {
-        if(!String.valueOf(value).matches("[a-zA-Z]*"))
+        if(!String.valueOf(value).matches("[a-zA-Z0-9]*"))
         {
             throw new Exception("Error: Must be non-numerical input");
         }
@@ -44,7 +44,7 @@ public abstract class Vehicle implements IMileageEfficiency, Serializable
 
     public void setModel(String value) throws Exception
     {
-        if(!String.valueOf(value).matches("[a-zA-Z]*"))
+        if(!String.valueOf(value).matches("[a-zA-Z0-9]*"))
         {
             throw new Exception("Error: Must be non-numerical input");
         }

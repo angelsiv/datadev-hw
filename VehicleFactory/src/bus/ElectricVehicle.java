@@ -48,6 +48,6 @@ public class ElectricVehicle extends Vehicle
     @Override
     public String toString()
     {
-        return super.toString() + String.format("Mileage: %s", this.getMilesPerGallon());
+        return super.toString() + String.format(" | Mileage: %s", this.getMilesPerGallon());
     }
 }

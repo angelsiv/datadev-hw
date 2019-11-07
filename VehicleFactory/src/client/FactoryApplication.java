@@ -2,6 +2,7 @@ package client;
 import bus.*;
 
 import java.io.IOException;
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
@@ -23,7 +24,7 @@ public class FactoryApplication
     public static void main(String[] args) throws Exception
     {
         //Load serialized file
-        //vehicleList = FileHandler.readFromFile(); //file doesn't exist yet so will break code
+        vehicleList = FileHandler.readFromFile(); //file doesn't exist yet so will break code
 
         //Start of the application
         displayMainMenu();
@@ -42,7 +43,7 @@ public class FactoryApplication
         do
         {
             //Print available options
-            System.out.println("\t--MAIN MENU--\n"
+            System.out.println("\n\t--MAIN MENU--\n\n"
                     + "1. Make Trip\n"
                     + "2. Add Vehicle\n"
                     + "3. Remove Vehicle\n"
@@ -62,7 +63,7 @@ public class FactoryApplication
                 case "1": makeTrip(); break;
                 case "2": addVehicle(); break;
                 case "3": removeVehicle(); break;
-                case "4": displayVehicleList(); break;
+                case "4": displayVehicleList(); displayListOptions(); break;
                 case "5": exitApplication(); break;
                 default: break;
             }
@@ -81,21 +82,27 @@ public class FactoryApplication
         String userInput;
         Vehicle tripVehicle;
 
-        if(vehicleList != null)
+        if(vehicleList.size() != 0) //execute if the list is not empty
         {
             System.out.println("\n\t -- CREATE A TRIP -- \n");
-            System.out.println("Select a vehicle from the list: \n");
+            System.out.println("Select a vehicle from the list:");
             displayVehicleList();
             do
             {
-                System.out.println("Enter a serial number: \n");
+                System.out.println("\nEnter a serial number: \n");
                 userInput = scan.next();
             }
             while(!Validator.isDigit(userInput));
+
             if(Validator.isDigit(userInput));
             {
                 int serialNumber = Integer.parseInt(userInput);
                 tripVehicle = searchVehicle(serialNumber);
+                if(tripVehicle == null) //if after searching for a vehicle and it doesn't exist, terminate the function
+                {
+                    return;
+                }
+
                 System.out.println("Set trip counter (mi): \n");
                 tripVehicle.setTripCounter(scan.nextInt());
                 if(tripVehicle instanceof GasVehicle)
@@ -117,7 +124,6 @@ public class FactoryApplication
         {
             System.out.println("Error: No existing vehicles to create a trip\n");
             System.out.println("Returning to main menu...\n");
-            displayMainMenu();
         }
     }
 
@@ -151,7 +157,7 @@ public class FactoryApplication
                 case "2": vehicleList.add(createElectricVehicle()); break;
                 default: break;
             }
-            saveData();
+            //saveData();
         }
     }
 
@@ -167,7 +173,7 @@ public class FactoryApplication
         System.out.println("Vehicle Model: ");
         newGVehicle.setModel(scan.next());
 
-        System.out.print("Successfully added a new Gas Vehicle");
+        System.out.print("Successfully added a new Gas Vehicle\n");
         return newGVehicle;
     }
 
@@ -176,14 +182,14 @@ public class FactoryApplication
         ElectricVehicle newEVehicle = new ElectricVehicle();
         newEVehicle.setSerialNumber(assignID());
 
-        System.out.println("\n\t -- ADDING NEW GAS VEHICLE --\n");
+        System.out.println("\n\t -- ADDING NEW ELECTRIC VEHICLE --\n");
         //User inputs
         System.out.println("Vehicle Make: ");
         newEVehicle.setMake(scan.next());
         System.out.println("Vehicle Model: ");
         newEVehicle.setModel(scan.next());
 
-        System.out.print("Successfully added a new Electric Vehicle");
+        System.out.print("Successfully added a new Electric Vehicle\n");
         return newEVehicle;
     }
 
@@ -197,7 +203,7 @@ public class FactoryApplication
         String userInput;
         do
         {
-            System.out.println("\t\n--REMOVE AN EXISTING VEHICLE--\n");
+            System.out.println("\n\t--REMOVE AN EXISTING VEHICLE--\n");
             System.out.println("Enter the serial number of vehicle to remove: \n");
             userInput = scan.next();
         }
@@ -214,13 +220,18 @@ public class FactoryApplication
 
     private static void displayVehicleList() throws Exception
     {
-        System.out.println("\t -- VEHICLE LIST --\n");
+        System.out.println("\n\n\t -- VEHICLE LIST --\n");
+
+        if (vehicleList.size() == 0)
+        {
+            System.out.println("\t(empty)");
+        }
 
         for (Vehicle element: vehicleList) //loop through each vehicle in the vehicle list
         {
             System.out.println(element);
         }
-        displayListOptions();
+        //displayListOptions();
     }
 
     /*
@@ -236,7 +247,7 @@ public class FactoryApplication
 
         do
         {
-            System.out.println("\n\n1. Sort by serial number\n");
+            System.out.println("\n1. Sort by serial number\n");
             System.out.println("2. Sort by gas vehicles only\n");
             System.out.println("3. Sort by electric vehicles only\n");
             System.out.println("4. Sort by mileage\n");
@@ -262,6 +273,7 @@ public class FactoryApplication
                 default: break;
             }
             displayVehicleList();
+            displayListOptions();
         }
     }
 
@@ -275,24 +287,19 @@ public class FactoryApplication
         Vehicle searchedVehicle = null;
         for (Vehicle element : vehicleList)
         {
-            if (serialNumber % element.getSerialNumber() == 0)
+            if (serialNumber == element.getSerialNumber())
             {
-                System.out.println(String.format("\nVehicle with serial number '%s' found: \n", serialNumber));
-                System.out.println(element);
+                //System.out.println(String.format("\nVehicle with serial number '%s' found: \n", serialNumber));
+                //System.out.println(element);
                 searchedVehicle = element;
                 break;
             }
-            else
-            {
-                System.out.println(String.format("\nVehicle with serial number '%s' does not exist.", serialNumber));
-                return null;
-            }
         }
-        if(searchedVehicle != null)
+        if (searchedVehicle == null)
         {
-            return searchedVehicle;
+            System.out.println(String.format("\nVehicle with serial number '%s' does not exist.", serialNumber));
         }
-        return null;
+        return searchedVehicle;
     }
 
     /*
@@ -303,29 +310,37 @@ public class FactoryApplication
     private static void searchVehicle()
     {
         String userInput;
-        do
+
+        if(vehicleList.size() == 0)
         {
-            System.out.println("\n\t -- SEARCH VEHICLE BY SERIAL NUMBER --\n");
-            System.out.println("Enter a serial number: \n");
-            userInput = scan.next();
+            System.out.println("Error: No existing vehicles to search for");
         }
-        while(!Validator.isDigit(userInput));
-
-        if(Validator.isDigit(userInput))
+        else
         {
-            int serialNumber = Integer.parseInt(userInput);
-
-            for(Vehicle element : vehicleList)
+            do
             {
-                if(serialNumber % element.getSerialNumber() == 0)
+                System.out.println("\n\t -- SEARCH VEHICLE BY SERIAL NUMBER --\n");
+                System.out.println("Enter a serial number: \n");
+                userInput = scan.next();
+            }
+            while(!Validator.isDigit(userInput));
+
+            if(Validator.isDigit(userInput))
+            {
+                int serialNumber = Integer.parseInt(userInput);
+
+                for(Vehicle element : vehicleList)
                 {
-                    System.out.print(String.format("\nFound vehicle with serial '%s':\n", serialNumber));
-                    System.out.println(element);
-                    break;
-                }
-                else
-                {
-                    System.out.println(String.format("\nVehicle with serial number '%s' does not exist.\n", serialNumber));
+                    if(serialNumber % element.getSerialNumber() == 0)
+                    {
+                        System.out.print(String.format("\nFound vehicle with serial '%s':\n", serialNumber));
+                        System.out.println(element);
+                        break;
+                    }
+                    else
+                    {
+                        System.out.println(String.format("\nVehicle with serial number '%s' does not exist.\n", serialNumber));
+                    }
                 }
             }
         }
@@ -338,13 +353,20 @@ public class FactoryApplication
      */
     private static void displayGasVehicles()
     {
+        boolean foundAnyGasVehicle = false;
+
         System.out.println("\n\t Displaying all gas vehicles...\n");
         for(Vehicle element : vehicleList)
         {
             if (element instanceof GasVehicle)
             {
                 System.out.println(element);
+                foundAnyGasVehicle = true;
             }
+        }
+        if(!foundAnyGasVehicle)
+        {
+            System.out.print("Error: No existing gas vehicle\n");
         }
     }
 
@@ -355,13 +377,20 @@ public class FactoryApplication
      */
     private static void displayElectricVehicles()
     {
+        boolean foundAnyElectricVehicle = false;
+
         System.out.println("\n\t Displaying all electric vehicles...\n");
         for(Vehicle element : vehicleList)
         {
             if (element instanceof ElectricVehicle)
             {
                 System.out.println(element);
+                foundAnyElectricVehicle = true;
             }
+        }
+        if (!foundAnyElectricVehicle)
+        {
+            System.out.print("Error: No existing electric vehicle\n");
         }
     }
 
@@ -398,28 +427,30 @@ public class FactoryApplication
      */
     private static void searchVehicleByBrand()
     {
+        //Attributes
         String userInput;
-        do
-        {
-            System.out.println("\n\t -- SEARCH VEHICLE BY BRAND --\n");
-            System.out.println("Enter a brand: \n");
-            userInput = scan.next();
-        }
-        while(Validator.isDigit(userInput));
 
-        if(!Validator.isDigit(userInput))
+        System.out.println("\n\t -- SEARCH VEHICLE BY BRAND --\n");
+        System.out.println("Enter a brand: \n");
+        userInput = scan.next();
+
+        if(vehicleList.size() == 0)
         {
-            for(Vehicle element : vehicleList)
+            System.out.println("\nError: No existing vehicles to search for\n");
+            return; //return to listing options
+        }
+
+        for(Vehicle element : vehicleList)
+        {
+            if(userInput.equals(element.getMake()))
             {
-                if(userInput.equals(element.getMake()))
-                {
-                    System.out.print(String.format("\nFound vehicle(s) of brand '%s':\n", userInput));
-                    System.out.println(element);
-                }
-                else
-                {
-                    System.out.println(String.format("\nVehicle of brand '%s' does not exist.\n", userInput));
-                }
+                System.out.print(String.format("\nFound vehicle(s) of brand '%s':\n", userInput));
+                System.out.println(element);
+                break;
+            }
+            else
+            {
+                System.out.println(String.format("\nVehicle of brand '%s' does not exist.\n", userInput));
             }
         }
     }
@@ -432,7 +463,7 @@ public class FactoryApplication
     private static void saveData() throws IOException
     {
         FileHandler.writeToFile(vehicleList);
-        System.out.print("Saving data...");
+        System.out.print("Saving data...\n");
     }
 
     /*
@@ -443,7 +474,7 @@ public class FactoryApplication
     private static int assignID()
     {
         Random rand = new Random();
-        while(true) //while there is still any available int
+        while(true) //while there is still any available int number to use
         {
             int id = rand.nextInt(99999);
             if(!alreadyUsedIDs.contains(id))
