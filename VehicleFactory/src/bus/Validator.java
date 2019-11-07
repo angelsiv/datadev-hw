@@ -10,15 +10,15 @@ public class Validator
     /*
     BRIEF: Verifies if the String is a digit or not and that it is within the allowed bound. Catches error when string is not a digit
     PARAMS: String
-    OUT: bool
+    OUT: boolean
      */
-    public static boolean isDigit(String input)
+    public static boolean isValidUserInput(String input)
     {
         try //verify that input can be parsed to integer
         {
-            int choice = Integer.parseInt(input);
+            int userInput = Integer.parseInt(input);
 
-            if (choice >= MIN_INPUT && MAX_INPUT <= choice) //verify that the digit is an existing choice
+            if (userInput >= MIN_INPUT && MAX_INPUT <= userInput) //verify that the digit is an existing choice
             {
                 System.out.println("...\n");
                 return true;
@@ -46,5 +46,25 @@ public class Validator
     {
         MIN_INPUT = min;
         MAX_INPUT = max;
+    }
+
+    /*
+    BRIEF: Verifies that the string input contains digits only
+    PARAMS: String
+    OUT: boolean
+     */
+    public static boolean isDigit(String input)
+    {
+        try
+        {
+            int userInput = Integer.parseInt(input);
+            return true;
+        }
+        catch (Exception e)
+        {
+            System.out.println(e);
+            System.out.println("Error: your input contains non-numeral characters.");
+            return false;
+        }
     }
 }

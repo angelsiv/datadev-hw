@@ -1,6 +1,8 @@
 package bus;
 
-public abstract class Vehicle implements IMileageEfficiency
+import java.io.Serializable;
+
+public abstract class Vehicle implements IMileageEfficiency, Serializable
 {
     //Attributes
     private int serialNumber;

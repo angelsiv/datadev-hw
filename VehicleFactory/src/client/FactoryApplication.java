@@ -3,6 +3,7 @@ import bus.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Scanner;
 
 /*
@@ -21,10 +22,10 @@ public class FactoryApplication
 
     public static void main(String[] args) throws IOException, ClassNotFoundException
     {
-        //Retrieve serialized file
+        //Load serialized file
         //vehicleList = FileHandler.readFromFile(); //file doesn't exist yet so will break code
 
-        //Main Menu
+        //Start of the application
         displayMainMenu();
     }
 
@@ -37,30 +38,33 @@ public class FactoryApplication
     {
         //Attributes
         String userInput;
-        Validator.setBoundsForUserInput(1, 4); //this menu has options from 1 to 4
+        Validator.setBoundsForUserInput(1, 5); //this menu has options from 1 to 5
 
         do
         {
             //Print available options
-            System.out.println("\t--MAIN MENU--\n");
-            System.out.println("1. Add Vehicle\n");
-            System.out.println("2. Remove Vehicle\n");
-            System.out.println("3. Display Vehicle List\n");
-            System.out.println("4. Exit\n\n");
+            System.out.println("\t--MAIN MENU--\n"
+                    + "1. Make Trip\n"
+                    + "2. Add Vehicle\n"
+                    + "3. Remove Vehicle\n"
+                    + "4. Display Vehicle List\n"
+                    + "5. Exit\n\n");
+
             System.out.println("\nSelect option (1 - 4): ");
             userInput = scan.next();
         }
-        while (!Validator.isDigit(userInput)); //verify options
+        while (!Validator.isValidUserInput(userInput)); //verify options
 
         //after making sure input is valid
-        if(Validator.isDigit(userInput))
+        if(Validator.isValidUserInput(userInput))
         {
             switch(userInput)
             {
-                case "1": addVehicle(); break;
-                case "2": removeVehicle(); break;
-                case "3": displayVehicleList(); break;
-                case "4": ExitApplication(); break;
+                case "1": break; //add make trip
+                case "2": addVehicle(); break;
+                case "3": removeVehicle(); break;
+                case "4": displayVehicleList(); break;
+                case "5": ExitApplication(); break;
                 default: break;
             }
             saveData();
@@ -68,12 +72,16 @@ public class FactoryApplication
         }
     }
 
-    //1.	Adding a new vehicle into a list of vehicles.
+    /*
+    BRIEF: Lets the user select which type of vehicle to add to the list, and adds it to the vehicle list
+    PARAMS: n/a
+    OUT: void
+     */
     private static void addVehicle() throws IOException, ClassNotFoundException
     {
         //Attributes
         String userInput;
-        Validator.setBoundsForUserInput(1, 2);
+        Validator.setBoundsForUserInput(1, 2); //only 2 options
 
         //Display user choices
         do
@@ -84,9 +92,9 @@ public class FactoryApplication
             System.out.println("\nSelect option (1 - 2): ");
             userInput = scan.next();
         }
-        while (!Validator.isDigit(userInput));
+        while (!Validator.isValidUserInput(userInput));
 
-        if(Validator.isDigit(userInput))
+        if(Validator.isValidUserInput(userInput))
         {
             switch(userInput)
             {
@@ -101,8 +109,10 @@ public class FactoryApplication
     private static GasVehicle createGasVehicle()
     {
         GasVehicle newGVehicle = new GasVehicle();
+        newGVehicle.setSerialNumber(assignID());
 
         //User inputs here
+
 
         System.out.print("Successfully added a new Gas Vehicle");
         return newGVehicle;
@@ -111,53 +121,202 @@ public class FactoryApplication
     private static ElectricVehicle createElectricVehicle()
     {
         ElectricVehicle newEVehicle = new ElectricVehicle();
+        newEVehicle.setSerialNumber(assignID());
 
         //User inputs here
+
 
         System.out.print("Successfully added a new Electric Vehicle");
         return newEVehicle;
     }
 
-    //3.	Removing a specific vehicle from the list of vehicles.
-    private static void removeVehicle()
+    /*
+    BRIEF: Lets user remove a vehicle from the vehicle list identified by its serial number
+    PARAMS: n/a
+    OUT: void
+     */
+    private static void removeVehicle() throws IOException, ClassNotFoundException
     {
-        System.out.println("\t\n--REMOVE VEHICLE--");
+        String userInput;
+        do
+        {
+            System.out.println("\t\n--REMOVE VEHICLE--");
+            System.out.println("Enter serial number of vehicle to remove: \n");
+            userInput = scan.next();
+        }
+        while(!Validator.isDigit(userInput));
+
+        if(Validator.isDigit(userInput))
+        {
+            int serialNumber = Integer.parseInt(userInput);
+            System.out.println(String.format("Removing: %s", serialNumber));
+            vehicleList.remove(searchVehicle(serialNumber));
+        }
+        //saveData();
     }
 
-    //4.	Listing vehicles, listing gasoline vehicles, listing electric vehicles
-    private static void displayVehicleList()
+    private static void displayVehicleList() throws IOException, ClassNotFoundException
     {
-        //display current unedited list
-        for (Vehicle element: vehicleList)
+        System.out.println("\t -- VEHICLE LIST --\n");
+
+        for (Vehicle element: vehicleList) //loop through each vehicle in the vehicle list
         {
             System.out.println(element);
         }
-
-        //func to sort list
-        updateVehicleSorting(vehicleList);
-        // func to search by id using SerialNumberComparator
-        // func to list gas or electric only using instanceof
+        displayListOptions();
     }
 
-    //2.	Searching for a vehicle by serial number.
+    //4.	Listing vehicles, listing gasoline vehicles, listing electric vehicles
+    //  1.1- sort the factory by mileage in descending order
+    //  1.2-  search for a vehicle by brand
+    private static void displayListOptions() throws IOException, ClassNotFoundException
+    {
+        //Attributes
+        String userInput;
+        Validator.setBoundsForUserInput(1, 7);
+
+        do
+        {
+            System.out.println("\n\n1. Sort by serial number\n");
+            System.out.println("2. Sort by gas vehicles only\n");
+            System.out.println("3. Sort by electric vehicles only\n");
+            System.out.println("4. Sort by mileage\n");
+            System.out.println("5. Search a vehicle by serial number\n");
+            System.out.println("6. Search a vehicle by brand\n");
+            System.out.println("7. Return to the main menu\n");
+            System.out.println("\nSelect option (1 - 5): ");
+            userInput =  scan.next();
+        }
+        while (!Validator.isValidUserInput(userInput));
+
+        if(Validator.isValidUserInput(userInput))
+        {
+            switch(userInput)
+            {
+                case "1": sortVehiclesBySerialNumber(vehicleList); break;
+                case "2": displayGasVehicles(); break;
+                case "3": displayElectricVehicles(); break;
+                case "4": sortVehiclesByMileage(); break;
+                case "5": searchVehicle(); break;
+                case "6": searchVehicleByBrand(); break;
+                case "7": displayMainMenu(); break;
+                default: break;
+            }
+            displayVehicleList();
+        }
+    }
+
+    /*
+    BRIEF: Searches a vehicle through the vehicle list with a matching input serial number and returns a Vehicle to use in other functions
+    PARAMS: int
+    OUT: Vehicle
+     */
+    private static Vehicle searchVehicle(int serialNumber)
+    {
+        Vehicle searchedVehicle = null;
+        for (Vehicle element : vehicleList)
+        {
+            if (serialNumber % element.getSerialNumber() == 0)
+            {
+                System.out.println(String.format("\nVehicle with serial number '%s' found: \n", serialNumber));
+                System.out.println(element);
+                searchedVehicle = element;
+                break;
+            }
+            else
+            {
+                System.out.println(String.format("\nVehicle with serial number '%s' does not exist.", serialNumber));
+                return null;
+            }
+        }
+        if(searchedVehicle != null)
+        {
+            return searchedVehicle;
+        }
+        return null;
+    }
+
+    /*
+    BRIEF: Searches a vehicle through the vehicle list with a matching input
+    PARAMS: n/a
+    OUT: void
+     */
     private static void searchVehicle()
+    {
+        String userInput;
+        do
+        {
+            System.out.println("\n\t -- SEARCH VEHICLE BY SERIAL NUMBER --\n");
+            System.out.println("Enter a serial number: \n");
+            userInput = scan.next();
+        }
+        while(!Validator.isDigit(userInput));
+
+        if(Validator.isDigit(userInput))
+        {
+            int serialNumber = Integer.parseInt(userInput);
+
+            for(Vehicle element : vehicleList)
+            {
+                if(serialNumber % element.getSerialNumber() == 0)
+                {
+                    System.out.print(String.format("\nFound Vehicle with serial '%s':\n", serialNumber));
+                    System.out.println(element);
+                    break;
+                }
+                else
+                {
+                    System.out.println(String.format("\nVehicle with serial number '%s' does not exist.\n", serialNumber));
+                }
+            }
+        }
+    }
+
+    private static void displayGasVehicles()
+    {
+        for(Vehicle element : vehicleList)
+        {
+            if (element instanceof GasVehicle)
+            {
+                System.out.println(element);
+            }
+        }
+    }
+
+    private static void displayElectricVehicles()
+    {
+        for(Vehicle element : vehicleList)
+        {
+            if (element instanceof ElectricVehicle)
+            {
+                System.out.println(element);
+            }
+        }
+    }
+
+    private static void sortVehiclesByMileage()
     {
 
     }
 
     /*
-    BRIEF: Sorts a list of vehicles by their ID using SerialNumberPredicate
+    BRIEF: Sorts a list of vehicles by their serial number using SerialNumberPredicate
     PARAMS: ArrayList<Vehicle>
     OUT: void
      */
-    private static void updateVehicleSorting(ArrayList<Vehicle> list)
+    private static void sortVehiclesBySerialNumber(ArrayList<Vehicle> list)
     {
         SerialNumberPredicate serialNumberComparator = new SerialNumberPredicate();
         list.sort(serialNumberComparator);
     }
 
+    private static void searchVehicleByBrand()
+    {
+
+    }
+
     /*
-    BRIEF: Saves user data to using file serialization
+    BRIEF: Saves user data using file serialization
     PARAMS: n/a
     OUT: void
      */
@@ -165,6 +324,25 @@ public class FactoryApplication
     {
         //use stream input/output
         System.out.print("Saving data...");
+    }
+
+    /*
+    BRIEF: Returns a random unique integer to use as a unique serial number for vehicles
+    PARAMS: n/a
+    OUT: int
+     */
+    private static int assignID()
+    {
+        Random rand = new Random();
+        while(true) //while there is still any available int
+        {
+            int id = rand.nextInt(99999);
+            if(!alreadyUsedIDs.contains(id))
+            {
+                alreadyUsedIDs.add(id);
+                return id;
+            }
+        }
     }
 
     /*
