@@ -53,7 +53,7 @@ public class ObjectTester {
         myPrepStmt.setString(2, stud_name);
         myPrepStmt.executeUpdate();
 
-        //myConnection.commit();     
+        //myConnection.commit();
         myConnection.close();
         System.out.println("\n\n End ojdbc application\n\n");
     }
