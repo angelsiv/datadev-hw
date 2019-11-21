@@ -1,18 +1,15 @@
-package bus;
+package data;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class SingletonConnection
 {
     private static SingletonConnection instance = null;
+    private SingletonConnection() {}
 
-    private SingletonConnection() { } //default constructor must be private
-
-    public static SingletonConnection getInstance() //singular construction
+    public static SingletonConnection getInstance()
     {
-        if (instance == null)
+        if(instance == null)
         {
             instance = new SingletonConnection();
         }
@@ -27,11 +24,14 @@ public class SingletonConnection
     public static Connection getConnection() throws SQLException
     {
         Connection myConnection = null;
-        String username = "system";
-        String password = "password";
+        String username = "sys as sysdba";
+        String password = "a439641d";
         String service = "localhost";
         String url = "jdbc:oracle:thin:";
 
-        return myConnection = DriverManager.getConnection(url + username + "/" + password + "@" + service);
+        myConnection = DriverManager.getConnection(url + username + "/" + password + "@" + service);
+        System.out.println("Connection established...");
+
+        return myConnection;
     }
 }
