@@ -2,23 +2,23 @@ package data;
 
 import java.sql.*;
 
-public class SingletonConnection
+public class SingletonConnectionDB
 {
-    private static SingletonConnection instance = null;
-    private SingletonConnection() {}
+    private static SingletonConnectionDB instance = null;
+    private SingletonConnectionDB() {}
 
-    public static SingletonConnection getInstance()
+    public static SingletonConnectionDB getInstance()
     {
         if(instance == null)
         {
-            instance = new SingletonConnection();
+            instance = new SingletonConnectionDB();
         }
         return instance;
     }
 
-    public static void setInstance(SingletonConnection instance)
+    public static void setInstance(SingletonConnectionDB instance)
     {
-        SingletonConnection.instance = instance;
+        SingletonConnectionDB.instance = instance;
     }
 
     public static Connection getConnection() throws SQLException
@@ -30,7 +30,7 @@ public class SingletonConnection
         String url = "jdbc:oracle:thin:";
 
         myConnection = DriverManager.getConnection(url + username + "/" + password + "@" + service);
-        System.out.println("Connection established...");
+        //System.out.println("Connection established...");
 
         return myConnection;
     }
