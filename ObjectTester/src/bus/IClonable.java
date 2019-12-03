@@ -2,5 +2,5 @@ package bus;
 
 public interface IClonable
 {
-    public Student Clone();
+    public abstract Student Clone();
 }

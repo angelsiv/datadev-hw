@@ -1,4 +1,6 @@
-package bus;
+package data;
+import bus.Vehicle;
+
 import java.io.*;
 import java.util.ArrayList;
 

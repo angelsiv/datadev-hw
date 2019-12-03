@@ -26,7 +26,6 @@ public class Student implements IClonable
         //super(newStudent.getId(), newStudent.getName(), newStudent.getType());
         //this.feesPerSession = newStudent.getFeesPerSession();
         //this.firstFees = newStudent.getFirstFees();
-        return newStudent;
     }
 
     public int getId() {
