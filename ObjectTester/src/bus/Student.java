@@ -5,7 +5,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.HashMap;
 
-public class Student
+public class Student implements IClonable
 {
     private int id;
     private String name;
@@ -18,6 +18,15 @@ public class Student
         this.id = id;
         this.name = name;
         this.type = type;
+    }
+
+    //Copy constructor
+    public Student(Student newStudent)
+    {
+        //super(newStudent.getId(), newStudent.getName(), newStudent.getType());
+        //this.feesPerSession = newStudent.getFeesPerSession();
+        //this.firstFees = newStudent.getFirstFees();
+        return newStudent;
     }
 
     public int getId() {
@@ -79,5 +88,10 @@ public class Student
 
     public static Exception createTable(Connection myConnection) throws SQLException {
         return StudentDB.createTable(myConnection);
+    }
+
+    @Override
+    public Student Clone() {
+        return new Student(this);
     }
 }
