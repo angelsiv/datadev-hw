@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 //Source for regex: https://docs.oracle.com/javase/7/docs/api/java/util/regex/Pattern.html#lt
 
-public abstract class Vehicle implements IMileageEfficiency, Serializable
+public abstract class Vehicle implements IMileageEfficiency, IClonable, Serializable
 {
     //Attributes
     private int serialNumber;
@@ -78,6 +78,14 @@ public abstract class Vehicle implements IMileageEfficiency, Serializable
         this.model = model;
     }
 
+    //Clone constructor
+    public Vehicle(Vehicle vehicleClone)
+    {
+        this.serialNumber = vehicleClone.getSerialNumber();
+        this.make = vehicleClone.getMake();
+        this.model = vehicleClone.getModel();
+    }
+
     //Common behaviours
     public void makeTrip(int tripCounter)
     {
@@ -89,5 +97,16 @@ public abstract class Vehicle implements IMileageEfficiency, Serializable
     public String toString()
     {
         return String.format("S#: %s | Make: %s | Model: %s ", this.serialNumber, this.make, this.model);
+    }
+
+    @Override
+    public Vehicle clone()
+    {
+        return new Vehicle(this) {
+            @Override
+            public float getMilesPerGallon() {
+                return 0;
+            }
+        };
     }
 }
