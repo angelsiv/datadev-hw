@@ -239,7 +239,7 @@ public class FactoryApplication
                     clone = new GasVehicle((GasVehicle)vehicleToClone);
                     return clone;
                 }
-                if(vehicleToClone instanceof ElectricVehicle)
+                else if(vehicleToClone instanceof ElectricVehicle)
                 {
                     clone = new ElectricVehicle((ElectricVehicle)vehicleToClone);
                     return clone;
