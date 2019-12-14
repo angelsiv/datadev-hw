@@ -23,8 +23,10 @@ public class FactoryApplication
 
     public static void main(String[] args) throws Exception
     {
+        //FileHandler.writeToFile(vehicleList); //ONLY USED WHEN VEHICLEDATABASE.SER DOES NOT INITIALIZE
+
         //Load serialized file
-        vehicleList = FileHandler.readFromFile(); //file doesn't exist yet so will break code
+        vehicleList = FileHandler.readFromFile(); //if file doesn't exist yet so will break code
 
         //Start of the application
         displayMainMenu();
@@ -122,7 +124,7 @@ public class FactoryApplication
         }
         else
         {
-            System.out.println("Error: No existing vehicles to create a trip\n");
+            System.out.println("Error: No existing vehicles to create a trip.\n");
             System.out.println("Returning to main menu...\n");
         }
     }
@@ -136,7 +138,7 @@ public class FactoryApplication
     {
         //Attributes
         String userInput;
-        Validator.setBoundsForUserInput(1, 2); //only 2 options
+        Validator.setBoundsForUserInput(1, 3); //only 2 options
 
         //Display user choices
         do
@@ -144,7 +146,8 @@ public class FactoryApplication
             System.out.println("\t -- ADD A NEW VEHICLE --\n");
             System.out.println("1. Gas Vehicle\n");
             System.out.println("2. Electric Vehicle\n");
-            System.out.println("\nSelect option (1 - 2): ");
+            System.out.println("3. Clone Existing Vehicle\n");
+            System.out.println("\nSelect option (1 - 3): ");
             userInput = scan.next();
         }
         while (!Validator.isValidUserInput(userInput));
@@ -155,12 +158,18 @@ public class FactoryApplication
             {
                 case "1": vehicleList.add(createGasVehicle()); break;
                 case "2": vehicleList.add(createElectricVehicle()); break;
+                case "3": vehicleList.add(createClone()); break;
                 default: break;
             }
             //saveData();
         }
     }
 
+    /*
+    BRIEF: Constructs a new Gas Vehicle
+    PARAMS: n/a
+    OUT: GasVehicle
+     */
     private static GasVehicle createGasVehicle() throws Exception
     {
         GasVehicle newGVehicle = new GasVehicle();
@@ -177,6 +186,11 @@ public class FactoryApplication
         return newGVehicle;
     }
 
+    /*
+    BRIEF: Constructs a new Electric Vehicle
+    PARAMS: n/a
+    OUT: ElectricVehicle
+     */
     private static ElectricVehicle createElectricVehicle() throws Exception
     {
         ElectricVehicle newEVehicle = new ElectricVehicle();
@@ -191,6 +205,54 @@ public class FactoryApplication
 
         System.out.print("Successfully added a new Electric Vehicle\n");
         return newEVehicle;
+    }
+
+    /*
+    BRIEF: Clones an existing vehicle by ID
+    PARAMS: n/a
+    OUT:
+     */
+    private static Vehicle createClone() throws Exception
+    {
+        String userInput;
+        Vehicle clone;
+
+        if(vehicleList.size() != 0) //only execute if the list is not empty
+        {
+            System.out.println("\n\t-- CLONE AN EXISTING VEHICLE -- \n");
+            displayVehicleList();
+            do
+            {
+                System.out.println("\nEnter the serial number of vehicle to clone: \n");
+                userInput = scan.next();
+            }
+            while(!Validator.isDigit(userInput));
+
+            if(Validator.isDigit(userInput))
+            {
+                int serialNumber = Integer.parseInt(userInput);
+                System.out.println(String.format("Cloning vehicle #'%s'", serialNumber));
+                Vehicle vehicleToClone = searchVehicle(serialNumber);
+
+                if(vehicleToClone instanceof GasVehicle)
+                {
+                    clone = new GasVehicle((GasVehicle)vehicleToClone);
+                    return clone;
+                }
+                if(vehicleToClone instanceof ElectricVehicle)
+                {
+                    clone = new ElectricVehicle((ElectricVehicle)vehicleToClone);
+                    return clone;
+                }
+                saveData();
+            }
+        }
+        else
+        {
+            System.out.println("Error: No existing vehicles to create a clone.\n");
+            System.out.println("Returning to main menu...\n");
+        }
+        return null;
     }
 
     /*

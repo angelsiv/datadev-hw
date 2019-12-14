@@ -2,5 +2,5 @@ package bus;
 
 public interface IClonable
 {
-    public abstract Vehicle clone();
+    public abstract Member clone();
 }

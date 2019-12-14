@@ -133,38 +133,42 @@ public class eSportsCompanyDatabase {
 	 */
 	private static Player createPlayer()
 	{
-		Player newPlayer = new Player();
-		newPlayer.setType(PersonnelType.Player);
-		newPlayer.setId(assignID());
+		if(createClone() == null)
+		{
+			Player newPlayer = new Player();
+			newPlayer.setType(PersonnelType.Player);
+			newPlayer.setId(assignID());
 
-		//User inputs
-		System.out.println("\nFIRST NAME: ");
-		newPlayer.setFirstName(scanner.next());
-		System.out.println("\nLAST NAME: ");
-		newPlayer.setLastName(scanner.next());
-		System.out.println("\nSALARY: \n");
-		newPlayer.setSalary(scanner.nextDouble());
-		System.out.println("\nTEAM NAME: \n");
-		newPlayer.setTeamName(scanner.next());
+			//User inputs
+			System.out.println("\nFIRST NAME: ");
+			newPlayer.setFirstName(scanner.next());
+			System.out.println("\nLAST NAME: ");
+			newPlayer.setLastName(scanner.next());
+			System.out.println("\nSALARY: \n");
+			newPlayer.setSalary(scanner.nextDouble());
+			System.out.println("\nTEAM NAME: \n");
+			newPlayer.setTeamName(scanner.next());
 
-		System.out.println("\n CONTRACT START: YEAR: ");
-		int s_year = scanner.nextInt();
-		System.out.println("\n CONTRACT START: MONTH (1-12): ");
-		int s_month = scanner.nextInt();
-		System.out.println("\n CONTRACT START: DAY: ");
-		int s_day = scanner.nextInt();
-		newPlayer.setContractStart(s_year, s_month, s_day);
+			System.out.println("\n CONTRACT START: YEAR: ");
+			int s_year = scanner.nextInt();
+			System.out.println("\n CONTRACT START: MONTH (1-12): ");
+			int s_month = scanner.nextInt();
+			System.out.println("\n CONTRACT START: DAY: ");
+			int s_day = scanner.nextInt();
+			newPlayer.setContractStart(s_year, s_month, s_day);
 
-		System.out.println("\n CONTRACT END: YEAR: ");
-		int e_year = scanner.nextInt();
-		System.out.println("\n CONTRACT END: MONTH (1-12): ");
-		int e_month = scanner.nextInt();
-		System.out.println("\n CONTRACT END: DAY: ");
-		int e_day = scanner.nextInt();
-		newPlayer.setContractEnd(e_year, e_month, e_day);
+			System.out.println("\n CONTRACT END: YEAR: ");
+			int e_year = scanner.nextInt();
+			System.out.println("\n CONTRACT END: MONTH (1-12): ");
+			int e_month = scanner.nextInt();
+			System.out.println("\n CONTRACT END: DAY: ");
+			int e_day = scanner.nextInt();
+			newPlayer.setContractEnd(e_year, e_month, e_day);
 
-		System.out.println("Created: " + newPlayer.getFirstName() + " " + newPlayer.getLastName());
-		return newPlayer;
+			System.out.println("Created: " + newPlayer.getFirstName() + " " + newPlayer.getLastName());
+			return newPlayer;
+		}
+		return null;
 	}
 
 	/*
@@ -234,6 +238,33 @@ public class eSportsCompanyDatabase {
 
 		System.out.println("Created: " + newManager.getFirstName() + " " + newManager.getLastName());
 		return newManager;
+	}
+
+	private static Member createClone()
+	{
+		String userInput;
+		System.out.println("\nCreate a clone? (y, n)\n");
+		userInput = scanner.next();
+		if(userInput.equals("y"))
+		{
+			System.out.println("\nEnter member ID to clone: ");
+			int cloneID = scanner.nextInt();
+			for(Member member : personnelList)
+			{
+				if(cloneID == member.getId())
+				{
+					System.out.println("Found!\n");
+					System.out.println(member);
+					System.out.println("\nCloning " + member.getId());
+					return member;
+				}
+			}
+		}
+		else if (userInput.equals("n"))
+		{
+			return null;
+		}
+		return null;
 	}
 
 	/*

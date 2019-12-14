@@ -3,7 +3,7 @@ package bus;
 import java.io.Serializable;
 import java.util.Comparator;
 
-public class Member implements Serializable
+public class Member implements IClonable, Serializable
 {
 	//All attributes for parent class
 	private int id;
@@ -27,6 +27,16 @@ public class Member implements Serializable
 		this.lastName = ln;
 		this.type = type;
 		this.salary = salary;
+	}
+
+	//Clone constructor
+	public Member(Member memberClone)
+	{
+		this.id = memberClone.getId();
+		this.firstName = memberClone.getFirstName();
+		this.lastName = memberClone.getLastName();
+		this.type = memberClone.getType();
+		this.salary = memberClone.getSalary();
 	}
 
 	//Setter and getters for each attributes
@@ -87,4 +97,8 @@ public class Member implements Serializable
 		+ "Position: " + this.type + " | ";
 	}
 
+	@Override
+	public Member clone() {
+		return new Member(this);
+	}
 }

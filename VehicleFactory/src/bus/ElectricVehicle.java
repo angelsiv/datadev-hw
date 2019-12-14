@@ -1,7 +1,7 @@
 package bus;
 
 //Source for regex for a floating point: https://stackoverflow.com/questions/12643009/regular-expression-for-floating-point-numbers
-public class ElectricVehicle extends Vehicle
+public class ElectricVehicle extends Vehicle implements ICloneable
 {
     private float KWPowerConsumed;
 
@@ -33,6 +33,13 @@ public class ElectricVehicle extends Vehicle
         this.KWPowerConsumed = KWPowerConsumed;
     }
 
+    //Clone constructor
+    public ElectricVehicle(ElectricVehicle electricVehicleCopy)
+    {
+        super(electricVehicleCopy.getSerialNumber(), electricVehicleCopy.getMake(), electricVehicleCopy.getModel());
+        this.KWPowerConsumed = electricVehicleCopy.getKWPowerConsumed();
+    }
+
     public void makeTrip(int tripCounter, float KWPowerConsumed)
     {
         super.makeTrip(tripCounter);
@@ -49,5 +56,11 @@ public class ElectricVehicle extends Vehicle
     public String toString()
     {
         return super.toString() + String.format(" | Mileage: %s", this.getMilesPerGallon());
+    }
+
+    @Override
+    public Vehicle clone()
+    {
+        return new ElectricVehicle(this);
     }
 }

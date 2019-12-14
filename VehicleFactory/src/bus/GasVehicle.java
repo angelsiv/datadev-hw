@@ -1,6 +1,6 @@
 package bus;
 
-public class GasVehicle extends Vehicle
+public class GasVehicle extends Vehicle implements ICloneable
 {
     private float fuelConsumed;
 
@@ -32,6 +32,13 @@ public class GasVehicle extends Vehicle
         this.fuelConsumed = fuelConsumed;
     }
 
+    //Clone constructor
+    public GasVehicle(GasVehicle gasVehicleCopy)
+    {
+        super(gasVehicleCopy.getSerialNumber(), gasVehicleCopy.getMake(), gasVehicleCopy.getModel());
+        this.fuelConsumed = gasVehicleCopy.getFuelConsumed();
+    }
+
     public void makeTrip(int tripCounter, float fuelConsumed)
     {
         super.makeTrip(tripCounter);
@@ -48,5 +55,11 @@ public class GasVehicle extends Vehicle
     public String toString()
     {
         return super.toString() + String.format(" | Mileage: %s", this.getMilesPerGallon());
+    }
+
+    @Override
+    public Vehicle clone()
+    {
+        return new GasVehicle(this);
     }
 }
